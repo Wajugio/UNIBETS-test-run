@@ -30,3 +30,13 @@ def get_user_by_username(username):
     if row:
         return User(*row)
     return None
+
+def get_user_by_id(user_id):
+    conn = sqlite3.connect(DB_NAME)
+    cur = conn.cursor()
+    cur.execute("SELECT id, username, password FROM users WHERE id = ?", (user_id,))
+    row = cur.fetchone()
+    conn.close()
+    if row:
+        return User(*row)
+    return None
